@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>Te amo Dudinhaaa</title>
   <style>
-    /* Reset e fonte */
     body {
       margin: 0;
       font-family: 'Arial', sans-serif;
@@ -25,7 +24,6 @@
       width: 200px;
       border-radius: 15px;
       margin: 20px;
-      /* RGB glow: três camadas de box-shadow */
       box-shadow:
         0 0 10px red,
         0 0 20px green,
@@ -39,22 +37,19 @@
       padding: 20px;
       background: rgba(255, 255, 255, 0.05);
       border-radius: 10px;
-      color: white;
       text-shadow: 0 0 5px #ff00ff;
     }
 
-    /* Coelhinho que segue o mouse */
     .coelho {
       position: absolute;
-      width: 40px;    /* menor que antes */
+      width: 40px;
       height: 40px;
       pointer-events: none;
       z-index: 1000;
-      background-color: transparent; /* remove bordas brancas */
+      background-color: transparent;
       border: none;
     }
 
-    /* Corações animados */
     .hearts-container {
       position: fixed;
       top: 0;
@@ -69,10 +64,10 @@
       position: absolute;
       width: 15px;
       height: 15px;
-      background: red;
+      background: pink;
       transform: rotate(45deg);
       animation: float 5s linear forwards;
-      box-shadow: 0 0 10px magenta, 0 0 20px cyan, 0 0 30px lime;
+      box-shadow: 0 0 10px pink, 0 0 20px deeppink, 0 0 30px hotpink;
     }
 
     .heart::before,
@@ -81,7 +76,7 @@
       position: absolute;
       width: 15px;
       height: 15px;
-      background: red;
+      background: pink;
       border-radius: 50%;
     }
 
@@ -105,17 +100,39 @@
         opacity: 0;
       }
     }
+
+    #play-button {
+      background: hotpink;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 1em;
+      margin-top: 20px;
+      cursor: pointer;
+      box-shadow: 0 0 10px pink;
+      transition: transform 0.2s;
+    }
+
+    #play-button:hover {
+      transform: scale(1.05);
+    }
   </style>
 </head>
 <body>
-  <audio autoplay loop>
+
+  <!-- Botão para iniciar a música -->
+  <button id="play-button">Tocar Música 🎶</button>
+
+  <!-- Áudio com ID para controle via JS -->
+  <audio id="musica" loop>
     <source src="Pelo_Tempo_Que_Durar.mp3" type="audio/mpeg">
     Seu navegador não suporta áudio.
   </audio>
 
   <div class="hearts-container"></div>
 
-  <h1>Te amo Dudinhaaa💗</h1>
+  <h1>Te amo Dudinhaaa 💗</h1>
   <img src="foto_dela.jpg" alt="Dudinha" class="foto">
 
   <div class="texto">
@@ -129,24 +146,30 @@
   <script>
     const coelho = document.getElementById('coelho');
     document.addEventListener('mousemove', e => {
-      coelho.style.left = (e.pageX - 20) + 'px'; // ajustado para 40px de largura
+      coelho.style.left = (e.pageX - 20) + 'px';
       coelho.style.top = (e.pageY - 20) + 'px';
     });
 
-    // Criar corações animados em toda a tela
+    // Criar corações
     const heartsContainer = document.querySelector('.hearts-container');
     function createHeart() {
       const heart = document.createElement('div');
       heart.className = 'heart';
-      // posição inicial X aleatória em todo o viewport width
       heart.style.left = Math.random() * window.innerWidth + 'px';
-      // posição inicial Y aleatória em todo o viewport height
       heart.style.top = Math.random() * window.innerHeight + 'px';
       heartsContainer.appendChild(heart);
-
       setTimeout(() => heart.remove(), 5000);
     }
-    setInterval(createHeart, 300);
+    setInterval(createHeart, 200);
+
+    // Tocar música ao clicar no botão
+    const playButton = document.getElementById('play-button');
+    const musica = document.getElementById('musica');
+    playButton.addEventListener('click', () => {
+      musica.play();
+      playButton.style.display = 'none'; // Oculta o botão após clique
+    });
   </script>
 </body>
 </html>
+
